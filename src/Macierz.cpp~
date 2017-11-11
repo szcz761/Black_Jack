@@ -1,0 +1,91 @@
+#include "Macierz.hh"
+
+
+
+void Macierz::wyswietlinfo()
+{
+   cout << "macierz zawiera wektor x: " << kol[0] << " y: " << kol[1] <<  " z: " << kol[2] << " wektor rozw: " << rozw << endl;
+}
+
+void Macierz::operator = (Macierz Mac2)
+{
+  for (int i=0; i<ROZMIAR;i++)
+    {
+      kol[i]=Mac2.kol[i];
+    }
+  rozw=Mac2.rozw;
+}
+void Macierz::zamienw(int i, int g)
+{
+  
+  cout << kol[1]<<endl << kol[2]<<endl << kol[3]<<endl;
+  float tmp;
+  for(int k=0;k<ROZMIAR;k++)
+    {
+      tmp=kol[k][i];
+      kol[k].setwsp(i,kol[k][g]);
+      kol[k].setwsp(g,tmp);
+    }
+  cout << kol[1]<< endl << kol[2]<<endl << kol[3]<<endl;
+}
+
+void Macierz::wyswietl()
+{
+  for(int i=0 ;i<ROZMIAR; i++)
+    {
+      cout << "| ";
+      for(int k=0 ;k<=ROZMIAR;k++)
+	{
+	  if(k==ROZMIAR-1)
+	    cout << kol[k].getwsp(i) << " ||x_"<< i+1 <<"|   |  " ;
+	  else
+	    cout << kol[k].getwsp(i) << "  ";
+	}
+      cout << "|" << endl;
+    }
+}
+
+// OPERATORY--------------------------------------------------------------
+
+istream& operator >> (istream &Strm, Macierz &mac)
+{
+  Wektor tmp; 
+  for(int i=0;i<=ROZMIAR;i++)
+    {
+      cin >> tmp;
+      mac.setwek(i,tmp);
+    }
+  return Strm;
+}
+
+ostream& operator << (ostream &Strm, Macierz &mac)
+{
+  Wektor tmp;
+  cout << endl;
+  for(int i=0;i<=ROZMIAR;i++)
+    {
+      tmp = mac.getwek(i);
+      cout << tmp << endl;
+    }
+  return Strm;
+}
+
+Wektor operator * (Macierz &mac1, Wektor x)
+{
+  Wektor wynik;
+  float tmp=0;
+  for(int i=0; i<ROZMIAR; i++)
+    {
+      tmp=0;
+      for(int k=0; k<ROZMIAR; k++)
+	{
+	  tmp+=mac1.getwek(k).getwsp(i)*x.getwsp(k);
+	}
+      wynik.setwsp(i,tmp);
+      } 
+  // for(int i=0; i<ROZMIAR; i++)
+  // wynik.setwsp(i,(mac1.getwek(0).getwsp(i)*x.getwsp(0))+(mac1.getwek(1).getwsp(i)*x.getwsp(1))+(mac1.getwek(2).getwsp(i)*x.getwsp(2)));//<<<<<<<<<<<<<<<<<<
+  return wynik;
+}
+
+

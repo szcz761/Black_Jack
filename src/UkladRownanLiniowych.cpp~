@@ -1,0 +1,155 @@
+#include "UkladRownanLiniowych.hh"
+#include <cmath>
+
+float UkladRownanLiniowych::wyznacznik(Macierz mac_tmp)
+{
+#if ROZMIAR == 1
+  return mac_tmp.getwek(0).getwsp(0);
+#elif ROZMIAR == 2
+  return (mac_tmp.getwek(0).getwsp(0)*mac_tmp.getwek(1).getwsp(1))-(mac_tmp.getwek(1).getwsp(0)*mac_tmp.getwek(0).getwsp(1));
+#elif ROZMIAR == 3
+  return 
+    (mac_tmp.getwek(0).getwsp(0)*mac_tmp.getwek(1).getwsp(1)*mac_tmp.getwek(2).getwsp(2))
+    +(mac_tmp.getwek(0).getwsp(1)*mac_tmp.getwek(1).getwsp(2)*mac_tmp.getwek(2).getwsp(0))
+    +(mac_tmp.getwek(0).getwsp(2)*mac_tmp.getwek(1).getwsp(0)*mac_tmp.getwek(2).getwsp(1))
+    -(mac_tmp.getwek(2).getwsp(0)*mac_tmp.getwek(1).getwsp(1)*mac_tmp.getwek(0).getwsp(2))
+    -(mac_tmp.getwek(2).getwsp(1)*mac_tmp.getwek(1).getwsp(2)*mac_tmp.getwek(0).getwsp(0))
+    -(mac_tmp.getwek(2).getwsp(2)*mac_tmp.getwek(1).getwsp(0)*mac_tmp.getwek(0).getwsp(1));
+#else
+  Macierz mac_tmp2=mac_tmp;
+  float wynik=0;  
+  float x=1;
+  // mac_tmp.wyswietl();
+  //cout <<endl;
+  int e=0;
+  int g=ROZMIAR;
+  for(int k=0;k<ROZMIAR;k++)
+    {
+      for(int w=e+1;w<ROZMIAR;w++)
+	{
+	  if(mac_tmp2[k][w]!=0)
+	    {
+	      g=ROZMIAR-1;
+	      while(mac_tmp[e][e]==0 && g>e)
+		{
+		  mac_tmp.zamienw(e,g);
+		  x=-x;
+		  g--;
+		}
+	      if(g==e)
+		k++;
+	      mac_tmp2=mac_tmp;
+	      for(int i=0;i<ROZMIAR; i++)
+		{
+		  wynik=mac_tmp2[e][e]*mac_tmp2[i][w]/mac_tmp2[k][w]-mac_tmp2[i][e];
+		  mac_tmp.getwek(i).setwsp(w,wynik); 
+		}
+	      x=x*mac_tmp2[e][e]/mac_tmp2[k][w];
+	    }
+	  mac_tmp2=mac_tmp;
+	  // mac_tmp.wyswietl();
+	  //cout << endl;
+	}
+       e++;
+    } 
+  wynik=1;
+  for(int i=0;i<ROZMIAR;i++)
+    wynik=wynik*mac_tmp[i][i];
+  // cout <<" " <<wynik <<" "  << x <<" "   << wynik/x <<endl <<"--------------------------------------------------------------"<<endl;
+  return wynik/x;
+#endif
+}
+
+Macierz UkladRownanLiniowych::zamien(Macierz mac_tmp,int i)
+{
+  if(i<0 || i>ROZMIAR)
+    {
+      cerr << "UKL::zamien(): Zły parametr i!" << endl;
+      return mac_tmp;
+    }  
+  if(i==0)
+    {
+      return mac_tmp;
+    }    
+  mac_tmp.setwek(i-1, mac.getwek(ROZMIAR)); 
+  return mac_tmp;
+}
+
+void UkladRownanLiniowych::setwyz()
+{
+  for(int i=0; i<=ROZMIAR; i++)
+    wyz[i] = wyznacznik(zamien(mac,i));
+}
+
+void UkladRownanLiniowych::oblicz()
+{
+  if(wyz[0]==0)
+    {
+      cerr << "UKL::oblicz(): wyznacznik rowny 0, rowanie sprzeczne"<<endl;
+      for(int i=0; i<ROZMIAR;i++)
+	wynik.setwsp(i,0);
+    }
+  else
+    {
+      for(int i=0; i<ROZMIAR;i++)
+	wynik.setwsp(i,wyz[i+1]/wyz[0]);
+    }
+}
+
+float UkladRownanLiniowych::getwyz(int i)
+{
+  if(i<0 || i>ROZMIAR)
+    {
+    cerr << "UKL::getwyz(): Zły parametr i!" << endl;
+    return wyz[0];
+    } 
+return wyz[i];
+}
+
+Wektor UkladRownanLiniowych::getwynik()
+{
+  return wynik;
+}
+
+
+void UkladRownanLiniowych::blad()
+{
+  Wektor wy, x, y;
+  float z;
+  x=mac*wynik;
+  y=mac.getwek(ROZMIAR); 
+  wy=x-y;
+  cout << endl << "Wektor bledu: Ax-b = " << wy << endl;
+  z=sqrt(wy*wy); 
+  cout << "Dlugosc wektora bledu: ||Ax-b|| = " << z << endl;
+}
+
+//------------------------------------------------------------
+
+istream& operator >> (istream &Strm, UkladRownanLiniowych &UklRown)
+{ 
+  Macierz x; 
+  cin >> x;
+  UklRown.setmac(x);   
+  return Strm;
+}
+
+ostream& operator << (ostream&Strm, UkladRownanLiniowych &UklRown)
+{
+  Macierz mac;
+  Wektor wek;
+  mac=UklRown.getmac();
+  wek=mac.getwek(ROZMIAR);
+  cout << "Macierz A^T:" <<endl; 
+  cout << mac << endl;
+  cout << "Wektor wyrazów wolnych b:" <<endl; 
+  cout << wek << endl;
+  wek = UklRown.getwynik();
+  cout << endl << "rozwiazanie x = (x1, x2 ....):" <<endl;
+  cout << wek << endl;
+  UklRown.blad();
+  //-----------------------------DODATKOWO--------------------------------------------------
+  cout << endl << endl << endl;
+  UklRown.getmac().wyswietl();
+  return Strm;
+}

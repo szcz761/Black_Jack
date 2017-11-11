@@ -1,0 +1,13 @@
+#ifndef CROUPIER_PLAYER.H
+#define CROUPIER_PLAYER.H
+
+#include "Player.h"
+class Croupier_Player :public Player
+{
+public:
+	Croupier_Player(std::vector<std::string> *deck);
+
+	bool move();
+};
+
+#endif
