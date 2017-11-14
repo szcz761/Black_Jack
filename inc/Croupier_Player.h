@@ -1,7 +1,4 @@
-#ifndef CROUPIER_PLAYER_H
-#define CROUPIER_PLAYER_H
-
-#include "Player.h"
+#include "My_Player.h"
 class Croupier_Player :public Player
 {
 public:
@@ -10,4 +7,3 @@ public:
 	bool move();
 };
 
-#endif

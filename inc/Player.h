@@ -1,6 +1,3 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
 #include <random>
 #include <algorithm>
 #include <iterator>
@@ -32,4 +29,3 @@ public:
 	int calculate_point();
 };
 
-#endif

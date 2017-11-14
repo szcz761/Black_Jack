@@ -1,7 +1,4 @@
-#ifndef CAREFULL_PLAYER_H
-#define CAREFULL_PLAYER_H
-
-#include "Player.h"
+#include "Croupier_Player.h"
 class Carefull_Player :public Player
 {
 public:
@@ -10,5 +7,4 @@ public:
 	bool move();
 };
 
-#endif
 

@@ -75,3 +75,25 @@ void Game::play_game()
 	}
 	end_game();
 }
+
+void Game::deck_fill(std::string file_name) 
+{
+  std::ifstream file(file_name,std::ios::in);
+  if (file.is_open()) 
+    {
+      std::string cards = "";
+      getline(file, cards);
+      std::string delimiter = ";";
+      size_t position = 0;
+      while ((position = cards.find(delimiter)) != std::string::npos) 
+	{
+	  Deck.push_back(cards.substr(0, cards.find(delimiter)));
+	  cards.erase(0, cards.find(delimiter) + delimiter.length());
+	}
+    }
+  else
+    {
+      std::string EX="Can't Open File!";
+      throw EX;
+    } 
+}

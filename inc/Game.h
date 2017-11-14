@@ -1,10 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
-
-#include "My_Player.h"
+#include <fstream>
 #include "Carefull_Player.h"
-#include "Croupier_Player.h"
-
 
 
 class Game
@@ -31,6 +26,8 @@ public:
 
 	void end_game();
 
+	void deck_fill(std::string file_name);
+
 };
 
-#endif
+

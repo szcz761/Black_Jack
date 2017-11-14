@@ -7,20 +7,18 @@
 #IncludeRegexTransform: 
 
 ../inc/Carefull_Player.h
-Player.h
-../inc/Player.h
-
-../inc/Croupier_Player.h
-Player.h
-../inc/Player.h
-
-../inc/Game.h
-My_Player.h
-../inc/My_Player.h
-Carefull_Player.h
-../inc/Carefull_Player.h
 Croupier_Player.h
 ../inc/Croupier_Player.h
+
+../inc/Croupier_Player.h
+My_Player.h
+../inc/My_Player.h
+
+../inc/Game.h
+fstream
+-
+Carefull_Player.h
+../inc/Carefull_Player.h
 
 ../inc/My_Player.h
 Player.h
@@ -59,8 +57,6 @@ Player.h
 /home/szymon/Pulpit/Black_Jack/src/Player.h
 
 /home/szymon/Pulpit/Black_Jack/src/main.cpp
-fstream
--
 Game.h
 /home/szymon/Pulpit/Black_Jack/src/Game.h
 

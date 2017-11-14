@@ -1,6 +1,3 @@
-#ifndef MY_PLAYER_H
-#define MY_PLAYER_H
-
 #include "Player.h"
 class My_Player :public Player
 {
@@ -14,4 +11,3 @@ public:
 	
 };
 
-#endif
