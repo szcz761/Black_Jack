@@ -1,5 +1,11 @@
 #include "Game.h"
 
+/*
+ * Coś mi się zdaje, że format logowania zadałem inny...
+ *
+ * ponadto logowanie powinno być wykonywane przez klasę dostarzaną z zewnątrz
+ */
+
 bool Game::start_game()
 {
 	if (Game_Player.Drow() || Croupier.Drow() || Game_Player.Drow())
@@ -42,9 +48,9 @@ void Game::end_game()
 
 void Game::play_game()
 {
-	while (Deck.size() > 4)
+	while (Deck.size() > 4)  // ten warunek można wyodrępnić do osobnej funkcji, np. isGameEnded()
 	{
-		if(start_game())
+		if(start_game())   // trochę to nieczytelne
 		{
 			end_game();
 			return;
@@ -76,8 +82,11 @@ void Game::play_game()
 	end_game();
 }
 
+// przetwarzanie talii powinno być realizowane w osobnej klasie
+// no i kod wygląda podobnie jak u Kacpra Bieganka... rzekłbym ten sam
 void Game::deck_fill(std::string file_name) 
 {
+	// coś formatowanie kodu jest tu inne niż w reszcie pliku...
   std::ifstream file(file_name,std::ios::in);
   if (file.is_open()) 
     {

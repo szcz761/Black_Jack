@@ -4,10 +4,11 @@ class My_Player :public Player
 public:
 	My_Player(std::vector<std::string> *deck);
 
+	// plus Å¼e daÅ‚eÅ› komentarz jak dziaÅ‚a :)
 	bool move();
-		/*liczy jakie zosta³y karty w tali (gracz ma prawo to pamietac) i patrzy jaka jest szansa
-		wylosowania karty zblizajacej do wygranej ale nie przekraczaj¹c¹ próg 21 punktów.
-		Je¿eli szansa ta wynosi wiecej ni¿ 50% dobiera kolejn¹ kartê.*/
+		/*liczy jakie zostaï¿½y karty w tali (gracz ma prawo to pamietac) i patrzy jaka jest szansa
+		wylosowania karty zblizajacej do wygranej ale nie przekraczajï¿½cï¿½ prï¿½g 21 punktï¿½w.
+		Jeï¿½eli szansa ta wynosi wiecej niï¿½ 50% dobiera kolejnï¿½ kartï¿½.*/
 	
 };
 

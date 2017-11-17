@@ -10,6 +10,7 @@ class Game
 	Player &Game_Player;
 	Player &Croupier;
 public:
+	// ta linia jest zdecydowania za długa, nie mieści mi się na monitorze
 	Game(std::vector<std::string> &deck, Player &game_player, Player &croupier) :Deck(deck), Game_Player(game_player), Croupier(croupier) 
 	{
 		Point_player=0;
@@ -20,11 +21,12 @@ public:
 
 	void play_game();
 
-	void prayer_win();
-
+	void prayer_win(); 	// te metody chyba powinny być publiczne, chyba że mamy szefa kasyna,
+						// który z zewnątrz może zadecydowac w dowolnym momencie
+						// kto wygrał grę bez znaczenia jakie kto ma karty
 	void croupier_win();
 
-	void end_game();
+	void end_game();    // gra chyba powinna się kończyć sama :P
 
 	void deck_fill(std::string file_name);
 
